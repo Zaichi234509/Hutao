@@ -4,8 +4,9 @@
 
 A cinematic, fully interactive character showcase for **Hu Tao**, the 77th Director of the
 Wangsheng Funeral Parlor — built as a premium, Genshin Impact–inspired archive rather than a
-landing page. Seven scroll-linked chapters, a functional 3D weapon carousel, an interactive
-constellation map, verified in-game data, and hand-authored decorative artwork.
+landing page. A scroll-scrubbed 3D "scrollytelling" sticky stage for the hero, seven
+scroll-linked chapters, a functional 3D weapon carousel, an interactive constellation map,
+verified in-game data, and hand-authored decorative artwork.
 
 ![Hero](docs/preview/home.jpg)
 
@@ -15,7 +16,7 @@ constellation map, verified in-game data, and hand-authored decorative artwork.
 
 | Chapter | What it does |
 | --- | --- |
-| **01 · Cinematic Hero** | Nine independently-scrubbed parallax layers (background → far scenery → environment → character → typography → floating decorations → foreground), scroll-linked character entrance, pointer-depth parallax, ambient butterflies / petals / embers, animated scroll cue. |
+| **01 · Scrollytelling 3D stage** | A sticky scroll stage: a tall runway pins a 100svh `perspective` scene while **one scrub-scrubbed GSAP timeline** flies a composed camera through it. Seven depth planes (backdrop → moon → rooftops → character → butterflies → petals → foreground), three copy beats that fly in and out of the Z axis, pointer-driven camera parallax, suspended dust motes, ambient butterflies / petals / embers, and a beat rail that doubles as scroll progress. |
 | **02 · Character Profile** | Portrait card with parallax drift, animated stat strip, biography, attribute grid, quote panel. |
 | **03 · Combat Talents** | WAI-ARIA tab interface for the three combat talents with animated panel transitions, talent-level toggle (Lv. 1 / 6 / 10) driving the multiplier table, plus passive talents. |
 | **04 · Weapon Archive** | Real CSS-3D ring carousel: 6 polearms with depth, rotation, scale, dimming and blur. Previous/next, dot selection, click-to-select, mouse drag, touch swipe, and keyboard (`←` `→` `Home` `End`). Info panel updates with rarity, Base ATK, secondary stat, passive and lore. |
@@ -26,6 +27,27 @@ constellation map, verified in-game data, and hand-authored decorative artwork.
 Additional: sticky navigation with scroll progress and active-section tracking, full-screen mobile
 menu, `prefers-reduced-motion` support, and a skip link.
 
+### The scroll-scrubbed 3D stage
+
+The hero is not a fixed-height banner — it is a **scrollytelling stage**:
+
+1. `#home` is a ~2.5-viewport-tall scroll runway.
+2. A 100svh `position: sticky` stage sits inside it, so the browser does the
+   pinning (no JS pin-spacer, no layout thrash, nothing to reserve).
+3. One `ScrollTrigger` with `scrub` drives a single timeline (`start: top top`,
+   `end: bottom bottom`). Every tween is normalised to 0→1, so the choreography
+   is identical on every breakpoint — only the runway length changes.
+4. Layers live at different `translateZ` depths inside a `perspective: 1500px`
+   scene: the moon, rooftops, character, butterflies, petals and foreground
+   blossoms all move at their own parallax rate, and the character pushes toward
+   the lens as you scroll.
+5. The copy is three beats stacked in one grid cell. Each beat is animated with
+   `autoAlpha` + `translateZ`, so it enters from deep space, settles, then flies
+   past the camera — and `autoAlpha` also removes the outgoing beat from the tab
+   order and the accessibility tree.
+6. `prefers-reduced-motion` swaps to a flat, static, fully readable hero: no
+   runway, no pinning, no hidden content.
+
 ### Screenshots
 
 Captured from the running build with a real Chromium (`npm run test:visual`).
@@ -33,15 +55,15 @@ Captured from the running build with a real Chromium (`npm run test:visual`).
 | | |
 | --- | --- |
 | ![Hero](docs/preview/home.jpg) | ![Profile](docs/preview/profile.jpg) |
-| **01 · Cinematic hero** | **02 · Character profile** |
+| **01 · Beat 01 — Arrival (scroll 0)** | **02 · Character profile** |
+| ![Scrollytelling](docs/preview/scrollytelling.jpg) | ![Mobile](docs/preview/mobile.jpg) |
+| **01 · Mid-scrub — beat 02, character pushed toward the lens** | **Chapter 01 on mobile** |
 | ![Talents](docs/preview/talents.jpg) | ![Weapons](docs/preview/weapons.jpg) |
 | **03 · Combat talents** | **04 · 3D weapon archive** |
 | ![Constellations](docs/preview/constellations.jpg) | ![Builds](docs/preview/builds.jpg) |
 | **05 · Constellation map** | **06 · Artifacts & builds** |
 | ![Gallery](docs/preview/gallery.jpg) | ![Ending](docs/preview/ending.jpg) |
 | **07 · Gallery** | **Cinematic ending** |
-
-<p align="center"><img src="docs/preview/mobile.jpg" width="300" alt="Mobile hero layout"></p>
 
 ---
 
@@ -51,7 +73,8 @@ Captured from the running build with a real Chromium (`npm run test:visual`).
 - **Vite 6**
 - **Tailwind CSS 3** with a custom Genshin-inspired design system
 - **GSAP 3 + ScrollTrigger** — every timeline is scoped in a `gsap.context()` and reverted on unmount
-- **CSS 3D transforms** for the weapon carousel
+- **CSS 3D** — a `perspective` scene of `translateZ` depth planes in the hero stage, and a 3D ring
+  carousel in the weapon archive
 - **Lucide React** icons
 - Self-hosted fonts via Fontsource: *Cinzel* (display), *Cormorant Garamond* (serif), *Jost* (sans)
 
@@ -123,7 +146,7 @@ src/
 │   └── gallery/        # combat + gallery artworks
 ├── components/
 │   ├── Navbar.tsx
-│   ├── ParallaxHero.tsx
+│   ├── ParallaxHero.tsx      # scroll-scrubbed 3D sticky stage (chapter 01)
 │   ├── CharacterProfile.tsx
 │   ├── TalentShowcase.tsx
 │   ├── WeaponCarousel3D.tsx
