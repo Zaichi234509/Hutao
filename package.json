@@ -1,0 +1,41 @@
+{
+  "name": "hutao-papilio-charontis",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Papilio Charontis \u2014 a cinematic Hu Tao character showcase built with React, TypeScript, GSAP and Tailwind CSS.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "typecheck": "tsc --noEmit",
+    "smoke:build": "vite build --config vite.smoke.config.ts",
+    "smoke": "npm run smoke:build && node scripts/smoke.mjs dist-smoke/smoke.js",
+    "test:ui": "npm run smoke:build && node scripts/interact.mjs dist-smoke/smoke.js",
+    "verify:classes": "node scripts/verify-classes.mjs",
+    "check": "npm run typecheck && npm run build && npm run verify:classes",
+    "test:visual": "node scripts/visual-check.mjs"
+  },
+  "dependencies": {
+    "@fontsource/cinzel": "^5.0.19",
+    "@fontsource/cormorant-garamond": "^5.0.22",
+    "@fontsource/jost": "^5.0.21",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^131.0.1",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^31.0.1",
+    "postcss": "^8.4.49",
+    "puppeteer-core": "^23.11.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.6.3",
+    "vite": "^6.0.7"
+  }
+}
