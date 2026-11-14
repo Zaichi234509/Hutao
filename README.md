@@ -7,7 +7,7 @@ Wangsheng Funeral Parlor — built as a premium, Genshin Impact–inspired archi
 landing page. Seven scroll-linked chapters, a functional 3D weapon carousel, an interactive
 constellation map, verified in-game data, and hand-authored decorative artwork.
 
-![Hero](docs/preview-hero.png)
+![Hero](docs/preview/home.jpg)
 
 ---
 
@@ -25,6 +25,23 @@ constellation map, verified in-game data, and hand-authored decorative artwork.
 
 Additional: sticky navigation with scroll progress and active-section tracking, full-screen mobile
 menu, `prefers-reduced-motion` support, and a skip link.
+
+### Screenshots
+
+Captured from the running build with a real Chromium (`npm run test:visual`).
+
+| | |
+| --- | --- |
+| ![Hero](docs/preview/home.jpg) | ![Profile](docs/preview/profile.jpg) |
+| **01 · Cinematic hero** | **02 · Character profile** |
+| ![Talents](docs/preview/talents.jpg) | ![Weapons](docs/preview/weapons.jpg) |
+| **03 · Combat talents** | **04 · 3D weapon archive** |
+| ![Constellations](docs/preview/constellations.jpg) | ![Builds](docs/preview/builds.jpg) |
+| **05 · Constellation map** | **06 · Artifacts & builds** |
+| ![Gallery](docs/preview/gallery.jpg) | ![Ending](docs/preview/ending.jpg) |
+| **07 · Gallery** | **Cinematic ending** |
+
+<p align="center"><img src="docs/preview/mobile.jpg" width="300" alt="Mobile hero layout"></p>
 
 ---
 
